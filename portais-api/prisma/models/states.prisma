@@ -1,0 +1,9 @@
+model State {
+    id   Int @id @default(autoincrement())
+    name String
+    uf   String
+    cities City[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+}

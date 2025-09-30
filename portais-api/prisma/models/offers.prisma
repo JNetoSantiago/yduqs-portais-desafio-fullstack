@@ -1,0 +1,25 @@
+model Offer {
+  id Int @id @default(autoincrement())
+  modality OfferModality @default(FACE_TO_FACE)
+  shift OfferShifts @default(MORNING)
+  originalPrice Int
+  withDiscountPrice Int
+  installmentsQty Int
+  addressId Int
+  
+  address Address @relation(fields: [addressId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+enum OfferModality {
+  EAD
+  FACE_TO_FACE
+}
+
+enum OfferShifts {
+  MORNING
+  AFTERNOON
+  NIGHT
+}
