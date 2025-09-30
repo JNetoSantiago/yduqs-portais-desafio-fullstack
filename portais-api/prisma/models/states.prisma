@@ -1,7 +1,7 @@
 model State {
     id   Int @id @default(autoincrement())
     name String
-    uf   String
+    uf   String @unique
     cities City[]
 
     createdAt DateTime @default(now())
