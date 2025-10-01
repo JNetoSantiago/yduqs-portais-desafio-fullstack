@@ -7,7 +7,10 @@ export class OffersService {
 
   findAll() {
     return this.prisma.offer.findMany({
-      include: { address: { include: { city: true, state: true } } },
+      include: {
+        address: { include: { city: true, state: true } },
+        installments: true,
+      },
     });
   }
 }
