@@ -5,6 +5,8 @@ model City {
 
     state State @relation(fields: [stateId], references: [id])
 
+    addresses Address[]
+
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }

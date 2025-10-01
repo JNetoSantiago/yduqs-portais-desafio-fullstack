@@ -2,35 +2,48 @@ import { PrismaClient } from './../generated/prisma';
 
 const prisma = new PrismaClient();
 async function main() {
-  const estados = [
-    {
-      name: 'Piauí',
-      uf: 'PI',
-      cities: ['Teresina', 'Parnaíba', 'Picos', 'Campo Maior'],
-    },
-    {
-      name: 'São Paulo',
-      uf: 'SP',
-      cities: ['São Paulo', 'Campinas', 'Santos', 'Ribeirão Preto'],
-    },
-  ];
-
-  for (const estado of estados) {
-    const state = await prisma.state.upsert({
-      where: { uf: estado.uf },
-      update: {},
-      create: {
-        name: estado.name,
-        uf: estado.uf,
-        cities: {
-          create: estado.cities.map((cityName) => ({ name: cityName })),
-        },
-      },
-      include: { cities: true },
-    });
-
-    console.log(`Criados ${estados.length} estados!`);
-  }
+  // const saoPaulo = await prisma.state.create({
+  //   data: {
+  //     name: 'São Paulo',
+  //     uf: 'SP',
+  //   },
+  // });
+  // const campinas = await prisma.city.create({
+  //   data: {
+  //     name: 'Campinas',
+  //     stateId: saoPaulo.id,
+  //   },
+  // });
+  // const address1 = await prisma.address.create({
+  //   data: {
+  //     street: 'Rua Exemplo',
+  //     number: '123',
+  //     cityId: campinas.id,
+  //     stateId: saoPaulo.id,
+  //     zipCode: '13000-000',
+  //   },
+  // });
+  // const rioDeJaneiro = await prisma.state.create({
+  //   data: {
+  //     name: 'Rio de Janeiro',
+  //     uf: 'RJ',
+  //   },
+  // });
+  // const rioCity = await prisma.city.create({
+  //   data: {
+  //     name: 'Barra da Tijuca',
+  //     stateId: rioDeJaneiro.id,
+  //   },
+  // });
+  // const address2 = await prisma.address.create({
+  //   data: {
+  //     street: 'Avenida Exemplo',
+  //     number: '456',
+  //     cityId: rioCity.id,
+  //     stateId: rioDeJaneiro.id,
+  //     zipCode: '22000-000',
+  //   },
+  // });
 }
 
 main()

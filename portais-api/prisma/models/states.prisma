@@ -3,6 +3,7 @@ model State {
     name String
     uf   String @unique
     cities City[]
+    addresses Address[]
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

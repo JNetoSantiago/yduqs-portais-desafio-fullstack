@@ -1,12 +1,12 @@
 model Offer {
   id Int @id @default(autoincrement())
-  modality OfferModality @default(FACE_TO_FACE)
+  modality OfferModality @default(PRESENCIAL)
   shift OfferShifts @default(MORNING)
   originalPrice Int
   withDiscountPrice Int
   installmentsQty Int
   addressId Int
-  
+
   address Address @relation(fields: [addressId], references: [id])
 
   createdAt DateTime @default(now())
@@ -15,7 +15,7 @@ model Offer {
 
 enum OfferModality {
   EAD
-  FACE_TO_FACE
+  PRESENCIAL
 }
 
 enum OfferShifts {
