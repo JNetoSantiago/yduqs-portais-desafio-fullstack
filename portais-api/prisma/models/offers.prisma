@@ -1,12 +1,14 @@
 model Offer {
-  id Int @id @default(autoincrement())
-  modality OfferModality @default(PRESENCIAL)
-  shift OfferShifts? @default(MORNING)
-  originalPrice Int?
+  id                Int           @id @default(autoincrement())
+  modality          OfferModality @default(PRESENCIAL)
+  shift             OfferShifts?  @default(MORNING)
+  originalPrice     Int?
   withDiscountPrice Int?
-  addressId Int
+  addressId         Int
 
   address Address @relation(fields: [addressId], references: [id])
+
+  installments Installment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())

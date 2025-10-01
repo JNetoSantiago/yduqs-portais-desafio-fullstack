@@ -49,16 +49,30 @@ async function main() {
     },
   });
 
-  const offerPresential = await prisma.offer.create({
+  const installmentsData = [
+    { deadline: 1, totalPrice: 261360 },
+    { deadline: 3, totalPrice: 270270 },
+    { deadline: 6, totalPrice: 279180 },
+    { deadline: 9, totalPrice: 288090 },
+    { deadline: 12, totalPrice: 294600 },
+    { deadline: 15, totalPrice: 301455 },
+    { deadline: 18, totalPrice: 305910 },
+  ];
+
+  await prisma.offer.create({
     data: {
       modality: 'PRESENCIAL',
       shift: 'MORNING',
       originalPrice: 4752,
       withDiscountPrice: 2613,
       addressId: address1.id,
+      installments: {
+        create: installmentsData,
+      },
     },
   });
-  const offerRemote = await prisma.offer.create({
+
+  await prisma.offer.create({
     data: {
       modality: 'EAD',
       originalPrice: 0,

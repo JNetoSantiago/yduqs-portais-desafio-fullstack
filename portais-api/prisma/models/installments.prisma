@@ -1,0 +1,11 @@
+model Installment {
+  id         Int @id @default(autoincrement())
+  deadline   Int
+  offerId    Int
+  totalPrice Int
+
+  offer Offer @relation(fields: [offerId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
