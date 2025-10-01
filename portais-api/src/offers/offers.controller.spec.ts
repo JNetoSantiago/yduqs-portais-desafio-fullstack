@@ -12,6 +12,18 @@ const fakeOffers = [
     addressId: 1,
     createdAt: '2025-10-01T11:52:20.850Z',
     updatedAt: '2025-10-01T11:52:20.850Z',
+    address: {
+      id: 1,
+      street: 'Rua Dr. Sales de Oliveira',
+      number: '1661',
+      complement: null,
+      neighborhood: 'Vila Industrial',
+      cityId: 1,
+      stateId: 1,
+      zipCode: '13000-000',
+      createdAt: '2025-10-01T11:52:20.833Z',
+      updatedAt: '2025-10-01T11:52:20.833Z',
+    },
   },
   {
     id: 2,
@@ -22,6 +34,18 @@ const fakeOffers = [
     addressId: 2,
     createdAt: '2025-10-01T11:52:20.858Z',
     updatedAt: '2025-10-01T11:52:20.858Z',
+    address: {
+      id: 2,
+      street: 'Av. das Américas',
+      number: '4.200',
+      complement: 'Bloco 11',
+      neighborhood: 'Tom Jobim',
+      cityId: 2,
+      stateId: 2,
+      zipCode: '22000-000',
+      createdAt: '2025-10-01T11:52:20.846Z',
+      updatedAt: '2025-10-01T11:52:20.846Z',
+    },
   },
 ];
 

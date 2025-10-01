@@ -6,6 +6,8 @@ export class OffersService {
   constructor(private prisma: PrismaService) {}
 
   findAll() {
-    return this.prisma.offer.findMany();
+    return this.prisma.offer.findMany({
+      include: { address: true },
+    });
   }
 }
