@@ -23,6 +23,20 @@ const fakeOffers = [
       zipCode: '13000-000',
       createdAt: '2025-10-01T11:52:20.833Z',
       updatedAt: '2025-10-01T11:52:20.833Z',
+      city: {
+        id: 1,
+        name: 'Campinas',
+        stateId: 1,
+        createdAt: '2025-10-01T11:52:20.825Z',
+        updatedAt: '2025-10-01T11:52:20.825Z',
+      },
+      state: {
+        id: 1,
+        name: 'São Paulo',
+        uf: 'SP',
+        createdAt: '2025-10-01T11:52:20.820Z',
+        updatedAt: '2025-10-01T11:52:20.820Z',
+      },
     },
   },
   {
@@ -45,6 +59,20 @@ const fakeOffers = [
       zipCode: '22000-000',
       createdAt: '2025-10-01T11:52:20.846Z',
       updatedAt: '2025-10-01T11:52:20.846Z',
+      city: {
+        id: 2,
+        name: 'Barra da Tijuca',
+        stateId: 2,
+        createdAt: '2025-10-01T11:52:20.842Z',
+        updatedAt: '2025-10-01T11:52:20.842Z',
+      },
+      state: {
+        id: 2,
+        name: 'Rio de Janeiro',
+        uf: 'RJ',
+        createdAt: '2025-10-01T11:52:20.838Z',
+        updatedAt: '2025-10-01T11:52:20.838Z',
+      },
     },
   },
 ];
@@ -79,7 +107,7 @@ describe('OffersService', () => {
     expect(response).toEqual(fakeOffers);
     expect(prismaMock.offer.findMany).toHaveBeenCalledTimes(1);
     expect(prismaMock.offer.findMany).toHaveBeenCalledWith({
-      include: { address: true },
+      include: { address: { include: { city: true, state: true } } },
     });
   });
 });
