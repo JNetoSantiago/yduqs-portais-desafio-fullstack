@@ -9,6 +9,7 @@ model Offer {
   address Address @relation(fields: [addressId], references: [id])
 
   installments Installment[]
+  students     Student[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
