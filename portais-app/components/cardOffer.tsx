@@ -1,13 +1,9 @@
+import OfferType from "@/types/offer";
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 
-export default function CardOffer({ offer }: { offer: any }) {
-  const valueToCurreny = (value: number) => {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-    }).format(value);
-  };
+import { valueToCurreny } from "@/utils/monetary";
 
+export default function CardOffer({ offer }: { offer: OfferType }) {
   return (
     <Card
       sx={{
@@ -82,7 +78,7 @@ export default function CardOffer({ offer }: { offer: any }) {
                 paddingBottom: "2px",
               }}
             >
-              18x
+              {offer.installments[offer.installments.length - 1]?.deadline}x de
             </Typography>
             <Typography
               sx={{
@@ -94,7 +90,9 @@ export default function CardOffer({ offer }: { offer: any }) {
                 letterSpacing: "0%",
               }}
             >
-              R$ 169,95
+              {valueToCurreny(
+                offer.installments[offer.installments.length - 1]?.value
+              )}
             </Typography>
           </Box>
           <Typography
@@ -130,7 +128,7 @@ export default function CardOffer({ offer }: { offer: any }) {
               letterSpacing: "0%",
             }}
           >
-            CAMPINAS - {offer.address.neighborhood}
+            {offer.address.city.name} - {offer.address.neighborhood}
           </Typography>
           <Typography
             sx={{
@@ -142,7 +140,8 @@ export default function CardOffer({ offer }: { offer: any }) {
               letterSpacing: "0%",
             }}
           >
-            RUA DR. SALES DE OLIVEIRA, Nº 1661 - VILA INDUSTRIAL - CAMP...
+            {offer.address.street}, Nº {offer.address.number} -{" "}
+            {offer.address.neighborhood} - {offer.address.city.name}
           </Typography>
         </Box>
       </CardContent>
