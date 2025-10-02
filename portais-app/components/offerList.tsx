@@ -1,13 +1,25 @@
 "use client";
 
+import { getAllOffers } from "@/actions/offers";
 import CardOffer from "@/components/cardOffer";
-import { useOffer } from "@/contexts/offerContext";
+import { OfferContext } from "@/contexts/offerContext";
 import OfferType from "@/types/offer";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
+import { useContext, useEffect } from "react";
 
 export default function OfferList() {
-  const { offers } = useOffer();
+  const { offers, loadOffers } = useContext(OfferContext);
+
+  useEffect(() => {
+    async function fetchOffers() {
+      const data = await getAllOffers();
+      loadOffers(data);
+    }
+    if (offers.length === 0) {
+      fetchOffers();
+    }
+  }, []);
 
   return (
     <Box

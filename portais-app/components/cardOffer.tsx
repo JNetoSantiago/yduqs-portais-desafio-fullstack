@@ -1,10 +1,23 @@
+"use client";
+
 import OfferType from "@/types/offer";
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 
 import CardOfferEad from "@/components/cardOfferEad";
 import CardOfferPresential from "@/components/cardOfferPresential";
+import { DrawerContext } from "@/contexts/drawerContext";
+import { OfferContext } from "@/contexts/offerContext";
+import { useContext } from "react";
 
 export default function CardOffer({ offer }: { offer: OfferType }) {
+  const { offers, setSelectedOffer } = useContext(OfferContext);
+  const { setOpen } = useContext(DrawerContext);
+
+  const handleSelectOffer = (offer: OfferType) => {
+    setSelectedOffer(offer);
+    setOpen(true);
+  };
+
   return (
     <Card
       sx={{
@@ -59,7 +72,12 @@ export default function CardOffer({ offer }: { offer: OfferType }) {
           ) : (
             <CardOfferEad offer={offer} />
           )}
-          <Button variant="contained" color="secondary" fullWidth>
+          <Button
+            variant="contained"
+            color="secondary"
+            fullWidth
+            onClick={() => handleSelectOffer(offer)}
+          >
             Avançar
           </Button>
         </Box>
