@@ -3,9 +3,9 @@ model Student {
   name                      String
   email                     String   @unique
   cpf                       String   @unique
-  birthdate                 DateTime
+  birthdate                 DateTime @db.Date
   phone                     String
-  yearConclusionSchool      Int
+  yearConclusionSchool      String
   acceptTerms               Boolean
   allowReceiveNotifications Boolean
   offerId                   Int

@@ -2,6 +2,7 @@ model Installment {
   id         Int @id @default(autoincrement())
   deadline   Int
   offerId    Int
+  value      Int
   totalPrice Int
 
   offer Offer @relation(fields: [offerId], references: [id])
