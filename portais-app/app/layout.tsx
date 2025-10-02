@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
+import { Providers } from "@/app/providers";
 import { ThemeProvider } from "@mui/material/styles";
 import theme from "../theme";
 
@@ -30,7 +31,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <AppRouterCacheProvider>
-          <ThemeProvider theme={theme}>{children}</ThemeProvider>
+          <ThemeProvider theme={theme}>
+            <Providers>{children}</Providers>
+          </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
     </html>
