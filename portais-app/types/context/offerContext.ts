@@ -6,6 +6,8 @@ type OfferContextType = {
 
   selectedOffer: OfferType | undefined;
   setSelectedOffer: (offer: OfferType | undefined) => void;
+
+  loadOffers: (offers: OfferType[]) => void;
 };
 
 export default OfferContextType;

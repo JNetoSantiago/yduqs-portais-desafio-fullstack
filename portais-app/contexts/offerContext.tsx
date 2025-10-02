@@ -4,21 +4,25 @@ import OfferContextType from "@/types/context/offerContext";
 import OfferType from "@/types/offer";
 import { createContext, ReactNode, useContext, useState } from "react";
 
-const OfferContext = createContext<OfferContextType | undefined>(undefined);
+export const OfferContext = createContext<OfferContextType>({
+  offers: [],
+  setOffers: () => {},
+  selectedOffer: undefined,
+  setSelectedOffer: () => {},
+  loadOffers: () => {},
+});
 
-export function OfferProvider({
-  children,
-  initialOffers = [],
-}: {
-  children: ReactNode;
-  initialOffers?: OfferType[];
-}) {
-  const [offers, setOffers] = useState<OfferType[]>(initialOffers);
+export function OfferProvider({ children }: { children: ReactNode }) {
+  const [offers, setOffers] = useState<OfferType[]>([]);
   const [selectedOffer, setSelectedOffer] = useState<OfferType | undefined>();
+
+  const loadOffers = (offers: OfferType[]) => {
+    setOffers(offers);
+  };
 
   return (
     <OfferContext.Provider
-      value={{ offers, setOffers, selectedOffer, setSelectedOffer }}
+      value={{ offers, setOffers, selectedOffer, setSelectedOffer, loadOffers }}
     >
       {children}
     </OfferContext.Provider>
