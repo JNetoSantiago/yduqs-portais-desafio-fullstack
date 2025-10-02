@@ -1,6 +1,12 @@
 import { Card, CardContent, Typography } from "@mui/material";
 
-export default function CardInfo() {
+export default function CardInfo({
+  title,
+  subtitle,
+}: {
+  title: String;
+  subtitle: String;
+}) {
   return (
     <Card
       sx={{
@@ -28,18 +34,20 @@ export default function CardInfo() {
             letterSpacing: 0,
           }}
         >
-          Vamos começar, escolha as opções do seu curso
+          {title}
         </Typography>
-        <Typography
-          sx={{
-            fontWeight: 400,
-            fontSize: 16,
-            lineHeight: "150%",
-            letterSpacing: 0,
-          }}
-        >
-          Selecione o curso que deseja e clique em avançar
-        </Typography>
+        {subtitle && (
+          <Typography
+            sx={{
+              fontWeight: 400,
+              fontSize: 16,
+              lineHeight: "150%",
+              letterSpacing: 0,
+            }}
+          >
+            {subtitle}
+          </Typography>
+        )}
       </CardContent>
     </Card>
   );

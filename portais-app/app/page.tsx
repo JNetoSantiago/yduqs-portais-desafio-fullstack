@@ -9,7 +9,10 @@ export default async function Home() {
   return (
     <>
       <Header />
-      <CardInfo />
+      <CardInfo
+        title="Vamos começar, escolha as opções do seu curso"
+        subtitle="Selecione o curso que deseja e clique em avançar"
+      />
       <OfferList />
       <DrawerInstallments />
       <Footer />
