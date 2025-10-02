@@ -19,7 +19,7 @@ export default function DrawerInstallments() {
   return (
     <Drawer anchor="right" open={open} onClose={clearContext}>
       {selectedOffer?.modality == "PRESENCIAL" ? (
-        <OfferPrentialDrawerContent />
+        <OfferPrentialDrawerContent offer={selectedOffer} />
       ) : (
         <OfferEadDrawerContent />
       )}
