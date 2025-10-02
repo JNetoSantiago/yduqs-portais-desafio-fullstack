@@ -5,7 +5,11 @@ import Header from "@/components/header";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 
-export default function Home() {
+import { getAllOffers } from "@/actions/offers";
+
+export default async function Home() {
+  const offers = await getAllOffers();
+
   return (
     <>
       <Header />
@@ -38,7 +42,11 @@ export default function Home() {
             2 opções encontradas
           </Typography>
         </Box>
-        <CardOffer />
+        <Box sx={{ display: "flex", flexDirection: "row", gap: "16px" }}>
+          {offers.map((offer: any) => (
+            <CardOffer key={offer.id} offer={offer} />
+          ))}
+        </Box>
       </Box>
       <Footer />
     </>

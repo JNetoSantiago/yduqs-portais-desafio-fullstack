@@ -1,6 +1,13 @@
 import { Box, Button, Card, CardContent, Typography } from "@mui/material";
 
-export default function CardOffer() {
+export default function CardOffer({ offer }: { offer: any }) {
+  const valueToCurreny = (value: number) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(value);
+  };
+
   return (
     <Card
       sx={{
@@ -34,7 +41,9 @@ export default function CardOffer() {
               letterSpacing: 0,
             }}
           >
-            Presencial | Manhã
+            {offer.modality === "PRESENCIAL"
+              ? `Presencial | ${offer.shift}`
+              : "EAD"}
           </Typography>
         </Box>
         <Box
@@ -58,7 +67,7 @@ export default function CardOffer() {
               letterSpacing: "0%",
             }}
           >
-            De R$ 4.752,00 por até
+            De {valueToCurreny(offer.originalPrice)} por até
           </Typography>
           <Box
             sx={{
@@ -96,7 +105,7 @@ export default function CardOffer() {
               paddingBottom: "2px",
             }}
           >
-            à vista R$ 2.613,60
+            à vista {valueToCurreny(offer.withDiscountPrice)}
           </Typography>
           <Button variant="contained" color="secondary" fullWidth>
             Avançar
@@ -121,7 +130,7 @@ export default function CardOffer() {
               letterSpacing: "0%",
             }}
           >
-            CAMPINAS - VILA INDUSTRIAL
+            CAMPINAS - {offer.address.neighborhood}
           </Typography>
           <Typography
             sx={{
