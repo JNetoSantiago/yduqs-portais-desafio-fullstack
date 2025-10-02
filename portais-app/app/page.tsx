@@ -6,6 +6,7 @@ import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 
 import { getAllOffers } from "@/actions/offers";
+import OfferType from "@/types/offer";
 
 export default async function Home() {
   const offers = await getAllOffers();
@@ -43,11 +44,12 @@ export default async function Home() {
           </Typography>
         </Box>
         <Box sx={{ display: "flex", flexDirection: "row", gap: "16px" }}>
-          {offers.map((offer: any) => (
+          {offers.map((offer: OfferType) => (
             <CardOffer key={offer.id} offer={offer} />
           ))}
         </Box>
       </Box>
+      {/* <DrawerInstallments /> */}
       <Footer />
     </>
   );
