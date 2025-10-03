@@ -1,5 +1,7 @@
 "use client";
 
+import { enrollInCourse } from "@/actions/enroll";
+import { OfferContext } from "@/contexts/offerContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
   Box,
@@ -9,6 +11,8 @@ import {
   FormHelperText,
   TextField,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
+import { useContext, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
 
@@ -38,12 +42,18 @@ type EnrolFormType = {
 };
 
 export default function EnrolForm() {
+  const { selectedInstallment, selectedOffer } = useContext(OfferContext);
+  const [loading, setLoading] = useState(false);
+
+  const router = useRouter();
+
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid  },
   } = useForm<EnrolFormType>({
     resolver: yupResolver(schema),
+    mode: "onChange",
     defaultValues: {
       name: "",
       email: "",
@@ -56,7 +66,54 @@ export default function EnrolForm() {
     },
   });
 
-  const onSubmit = (data: EnrolFormType) => console.log(data);
+  const onSubmit = async (data: EnrolFormType) => {
+    setLoading(true);
+
+    if (!selectedOffer || !selectedInstallment) {
+      setLoading(false);
+      console.error("Oferta ou parcela selecionada não encontrada.");
+      return;
+    }
+
+    const jsonData = {
+      ...data,
+      offerId: selectedOffer.id,
+      installmentId: selectedInstallment.id,
+    }
+
+    try {
+      const result = await enrollInCourse(jsonData);
+      console.log("Matrícula criada com sucesso:", result);
+
+      setLoading(false);
+      router.push("/success");
+    } catch (error) {
+      setLoading(false);
+      console.error("Erro ao criar matrícula:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (!selectedInstallment || !selectedOffer) {
+      router.replace("/");
+    }
+  }, [selectedInstallment, selectedOffer, router]);
+
+  const isDisabled = () => {
+    if (!selectedOffer || !isValid) {
+      return true;
+    }
+
+    if (selectedOffer?.modality == "PRESENCIAL" && !selectedInstallment) {
+      return true;
+    }
+
+    if (loading) {
+      return true;
+    }
+
+    return false;
+  }
 
   return (
     <Box
@@ -183,8 +240,8 @@ export default function EnrolForm() {
         )}
       />
 
-      <Button type="submit" variant="contained" color="secondary">
-        Enviar
+      <Button type="submit" variant="contained" color="secondary" disabled={isDisabled()}>
+        {loading ? "Enviando..." : "Enviar"}
       </Button>
     </Box>
   );
