@@ -45,4 +45,8 @@ export class CreateEnrollDto {
   @IsInt()
   @IsNotEmpty()
   offerId: number;
+
+  @IsInt()
+  @IsNotEmpty()
+  installmentId: number;
 }
