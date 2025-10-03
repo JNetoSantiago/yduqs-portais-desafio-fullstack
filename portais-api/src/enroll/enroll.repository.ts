@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateEnrollDto } from 'src/enroll/dto/create-enroll.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { Student } from './../../generated/prisma';
+import { PrismaService } from './../prisma/prisma.service';
 
 @Injectable()
 export class EnrollRepository {

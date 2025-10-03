@@ -38,6 +38,17 @@ const fakeOffers = [
         updatedAt: '2025-10-01T11:52:20.820Z',
       },
     },
+    installments: [
+      {
+        id: 1,
+        offerId: 1,
+        number: 1,
+        dueDate: '2025-11-01T11:52:20.850Z',
+        value: 1000,
+        createdAt: '2025-10-01T11:52:20.850Z',
+        updatedAt: '2025-10-01T11:52:20.850Z',
+      },
+    ],
   },
   {
     id: 2,
@@ -74,6 +85,7 @@ const fakeOffers = [
         updatedAt: '2025-10-01T11:52:20.838Z',
       },
     },
+    installments: [],
   },
 ];
 
@@ -107,7 +119,10 @@ describe('OffersService', () => {
     expect(response).toEqual(fakeOffers);
     expect(prismaMock.offer.findMany).toHaveBeenCalledTimes(1);
     expect(prismaMock.offer.findMany).toHaveBeenCalledWith({
-      include: { address: { include: { city: true, state: true } } },
+      include: {
+        address: { include: { city: true, state: true } },
+        installments: true,
+      },
     });
   });
 });

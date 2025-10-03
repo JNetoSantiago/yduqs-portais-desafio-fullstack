@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { EnrollRepository } from 'src/enroll/enroll.repository';
 import { CreateEnrollDto } from './dto/create-enroll.dto';
+import { EnrollRepository } from './enroll.repository';
 
 @Injectable()
 export class EnrollService {
