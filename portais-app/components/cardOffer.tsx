@@ -10,7 +10,7 @@ import { OfferContext } from "@/contexts/offerContext";
 import { useContext } from "react";
 
 export default function CardOffer({ offer }: { offer: OfferType }) {
-  const { offers, setSelectedOffer } = useContext(OfferContext);
+  const { setSelectedOffer } = useContext(OfferContext);
   const { setOpen } = useContext(DrawerContext);
 
   const handleSelectOffer = (offer: OfferType) => {
