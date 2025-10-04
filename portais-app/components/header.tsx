@@ -7,19 +7,27 @@ export default function Header() {
       sx={{
         opacity: 1,
         gap: "238px",
-        paddingTop: "28px",
-        paddingRight: "88px",
-        paddingBottom: "28px",
-        paddingLeft: "88px",
+        paddingTop: { xs: "16px", md: "24px" },
+        paddingRight: { xs: "16px", md: "88px" },
+        paddingBottom: { xs: "16px", md: "24px" },
+        paddingLeft: { xs: "16px", md: "88px" },
       }}
       color="transparent"
     >
-      <Image
-        src="/logo.svg"
-        width={158.33}
-        height={40}
-        alt="Picture of the author"
-      />
+      <Box
+        sx={{
+          width: { xs: "99.78px", md: "158.33px" },
+          height: { xs: "32px", md: "40px" },
+          position: "relative",
+        }}
+      >
+        <Image
+          src="/logo.svg"
+          alt="Logo"
+          fill
+          style={{ objectFit: "contain" }}
+        />
+      </Box>
     </Box>
   );
 }
