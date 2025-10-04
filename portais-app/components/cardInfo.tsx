@@ -1,4 +1,4 @@
-import { Card, CardContent, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 export default function CardInfo({
   title,
@@ -8,13 +8,13 @@ export default function CardInfo({
   subtitle: String;
 }) {
   return (
-    <Card
+    <Box
       sx={{
         width: "100%",
-        height: 150,
+        height: { xs: 191, md: 150 },
         opacity: 1,
-        p: "40px 88px",
-        gap: 2,
+        p: { xs: "24px", md: "40px 88px" },
+        gap: { xs: "16px", md: 2 },
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
@@ -22,14 +22,13 @@ export default function CardInfo({
         borderRadius: 0,
         color: "#FFFFFF",
       }}
-      elevation={0}
     >
-      <CardContent sx={{ p: 0 }}>
+      <Box sx={{ xs: 0, md: 0 }}>
         <Typography
           variant="h4"
           sx={{
             fontWeight: 500,
-            fontSize: 32,
+            fontSize: { xs: 24, md: 32 },
             lineHeight: "120%",
             letterSpacing: 0,
           }}
@@ -48,7 +47,7 @@ export default function CardInfo({
             {subtitle}
           </Typography>
         )}
-      </CardContent>
-    </Card>
+      </Box>
+    </Box>
   );
 }
