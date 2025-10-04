@@ -26,9 +26,10 @@ export default function OfferList() {
       sx={{
         opacity: 1,
         gap: "24px",
-        paddingRight: "88px",
+        paddingRight: { xs: "16px", md: "88px" },
+        paddingTop: { xs: "16px", md: 0 },
         paddingBottom: "56px",
-        paddingLeft: "88px",
+        paddingLeft: { xs: "16px", md: "88px" },
       }}
     >
       <Box
@@ -36,6 +37,7 @@ export default function OfferList() {
           opacity: 1,
           paddingTop: "32px",
           paddingBottom: "16px",
+          display: { xs: "none", md: "block" },
         }}
       >
         <Typography
@@ -50,7 +52,14 @@ export default function OfferList() {
           {offers.length} opções encontradas
         </Typography>
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "row", gap: "16px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", md: "row" },
+          gap: "16px",
+          alignItems: "flex-start",
+        }}
+      >
         {offers.map((offer: OfferType) => (
           <CardOffer key={offer.id} offer={offer} />
         ))}

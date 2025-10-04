@@ -22,16 +22,27 @@ export default function CardOffer({ offer }: { offer: OfferType }) {
     <Card
       sx={{
         borderColor: "primary.main",
+        borderRadius: "8px",
         borderWidth: "1px",
         borderStyle: "solid",
-        width: "381px",
+        m: 0,
+        p: 0,
+        width: "100%",
+        maxWidth: { xs: "288px", sm: "288px", md: "381px" },
       }}
+      elevation={0}
     >
-      <CardContent sx={{ p: 0 }}>
+      <CardContent
+        sx={{
+          p: 0,
+          "&:last-child": { pb: 0 },
+        }}
+      >
         <Box
           sx={{
-            width: "381px",
-            height: "38px",
+            width: "100%",
+            maxWidth: { xs: "288px", sm: "288px", md: "381px" },
+            boxSizing: "border-box",
             opacity: 1,
             gap: "8px",
             paddingTop: "8px",
@@ -41,13 +52,16 @@ export default function CardOffer({ offer }: { offer: OfferType }) {
             borderBottomWidth: "1px",
             backgroundColor: "primary.dark",
             color: "#FFFFFF",
+            display: "flex",
+            alignItems: "center",
+            px: "24px",
           }}
         >
           <Typography
             sx={{
               fontWeight: 400,
-              fontSize: 16,
-              lineHeight: "150%",
+              fontSize: "16px",
+              lineHeight: "135%",
               letterSpacing: 0,
             }}
           >
@@ -58,8 +72,7 @@ export default function CardOffer({ offer }: { offer: OfferType }) {
         </Box>
         <Box
           sx={{
-            width: "381px",
-            height: "209px",
+            width: "100%",
             opacity: 1,
             gap: "24px",
             padding: "24px",
@@ -77,6 +90,17 @@ export default function CardOffer({ offer }: { offer: OfferType }) {
             color="secondary"
             fullWidth
             onClick={() => handleSelectOffer(offer)}
+            sx={{
+              textTransform: "none",
+              fontWeight: 500,
+              fontSize: "16px",
+              lineHeight: "100%",
+              letterSpacing: "0%",
+              height: "40px",
+              borderRadius: "8px",
+              verticalAlign: "middle",
+              marginTop: "24px",
+            }}
           >
             Avançar
           </Button>
@@ -92,12 +116,13 @@ export default function CardOffer({ offer }: { offer: OfferType }) {
         >
           <Typography
             sx={{
-              fontWeight: "500",
-              fontStyle: "Medium",
+              fontWeight: 500,
               fontSize: "14px",
               leadingTrim: "NONE",
               lineHeight: "135%",
               letterSpacing: "0%",
+              textTransform: "uppercase",
+              color: "#121212",
             }}
           >
             {offer.address.city.name} - {offer.address.neighborhood}
@@ -110,6 +135,8 @@ export default function CardOffer({ offer }: { offer: OfferType }) {
               leadingTrim: "NONE",
               lineHeight: "114.99999999999999%",
               letterSpacing: "0%",
+              textTransform: "uppercase",
+              color: "#3D3D3D",
             }}
           >
             {offer.address.street}, Nº {offer.address.number} -{" "}

@@ -15,11 +15,21 @@ export default function CardOfferPresential({ offer }: { offer: OfferType }) {
           letterSpacing: "0%",
         }}
       >
-        De {valueToCurreny(offer.originalPrice)} por até
+        De{" "}
+        <Box
+          component="span"
+          sx={{
+            textDecoration: "line-through",
+          }}
+        >
+          {valueToCurreny(offer.originalPrice)}
+        </Box>{" "}
+        por até
       </Typography>
       <Box
         sx={{
           display: "flex",
+          alignItems: "flex-end",
         }}
       >
         <Typography
