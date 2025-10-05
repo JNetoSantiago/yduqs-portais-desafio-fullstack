@@ -56,6 +56,7 @@ export default function OfferList() {
         sx={{
           display: "flex",
           flexDirection: { xs: "column", md: "row" },
+          flexWrap: "wrap",
           gap: "16px",
           alignItems: "flex-start",
         }}

@@ -4,10 +4,17 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 
 import OfferList from "@/components/offerList";
+import { Box } from "@mui/material";
 
 export default async function Home() {
   return (
-    <>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        minHeight: "100vh",
+      }}
+    >
       <Header />
       <CardInfo
         title="Vamos começar, escolha as opções do seu curso"
@@ -15,7 +22,9 @@ export default async function Home() {
       />
       <OfferList />
       <DrawerInstallments />
+
+      <Box sx={{ flexGrow: 1 }} />
       <Footer />
-    </>
+    </Box>
   );
 }
