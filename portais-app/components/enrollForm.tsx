@@ -4,6 +4,7 @@ import { enrollInCourse } from "@/actions/enroll";
 import { OfferContext } from "@/contexts/offerContext";
 import { yupResolver } from "@hookform/resolvers/yup";
 import {
+  Alert,
   Box,
   Button,
   Checkbox,
@@ -43,12 +44,16 @@ export type EnrolFormType = yup.InferType<typeof schema>;
 export default function EnrolForm() {
   const { selectedInstallment, selectedOffer } = useContext(OfferContext);
   const [loading, setLoading] = useState(false);
+  const [generalError, setGeneralError] = useState<string | undefined>(
+    undefined
+  );
 
   const router = useRouter();
 
   const {
     handleSubmit,
     control,
+    setError,
     formState: { errors, isValid },
   } = useForm<EnrolFormType>({
     resolver: yupResolver(schema),
@@ -82,13 +87,28 @@ export default function EnrolForm() {
 
     try {
       const result = await enrollInCourse(jsonData);
-      console.log("Matrícula criada com sucesso:", result);
 
       setLoading(false);
-      router.push("/success");
+
+      if (result.statusCode == "200" || result.statusCode == "201") {
+        router.push("/success");
+      } else {
+        if (result.statusCode == 409) {
+          setGeneralError(undefined);
+
+          setError(result.field, {
+            type: "manual",
+            message: result.message,
+          });
+        } else {
+          setGeneralError(result.message);
+        }
+      }
     } catch (error) {
+      setGeneralError(
+        "Ocorreu um erro inexperado! Entre em contato com o administrador."
+      );
       setLoading(false);
-      console.error("Erro ao criar matrícula:", error);
     }
   };
 
@@ -130,6 +150,7 @@ export default function EnrolForm() {
         paddingBottom: "40px",
       }}
     >
+      {generalError && <Alert severity="error">{generalError}</Alert>}
       <Controller
         name="name"
         control={control}
