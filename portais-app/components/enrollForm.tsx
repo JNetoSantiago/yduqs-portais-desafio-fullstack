@@ -90,7 +90,7 @@ export default function EnrolForm() {
 
       setLoading(false);
 
-      if (result.statusCode == "200" || result.statusCode == "201") {
+      if (result.id) {
         router.push("/success");
       } else {
         if (result.statusCode == 409) {
