@@ -15,7 +15,7 @@ type formEnrollDataType = {
 
 export async function enrollInCourse(formData: formEnrollDataType) {
   try {
-    const res = await fetch("http://localhost:3000/enroll", {
+    const res = await fetch("http://localhost:4000/enroll", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
