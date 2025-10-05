@@ -50,7 +50,7 @@ export default function EnrolForm() {
   const {
     handleSubmit,
     control,
-    formState: { errors, isValid  },
+    formState: { errors, isValid },
   } = useForm<EnrolFormType>({
     resolver: yupResolver(schema),
     mode: "onChange",
@@ -79,7 +79,7 @@ export default function EnrolForm() {
       ...data,
       offerId: selectedOffer.id,
       installmentId: selectedInstallment.id,
-    }
+    };
 
     try {
       const result = await enrollInCourse(jsonData);
@@ -94,10 +94,13 @@ export default function EnrolForm() {
   };
 
   useEffect(() => {
-    if (!selectedInstallment || !selectedOffer) {
+    if (
+      !selectedOffer ||
+      (selectedOffer?.modality == "PRESENCIAL" && !selectedInstallment)
+    ) {
       router.replace("/");
     }
-  }, [selectedInstallment, selectedOffer, router]);
+  }, [selectedOffer, router]);
 
   const isDisabled = () => {
     if (!selectedOffer || !isValid) {
@@ -113,7 +116,7 @@ export default function EnrolForm() {
     }
 
     return false;
-  }
+  };
 
   return (
     <Box
@@ -240,7 +243,12 @@ export default function EnrolForm() {
         )}
       />
 
-      <Button type="submit" variant="contained" color="secondary" disabled={isDisabled()}>
+      <Button
+        type="submit"
+        variant="contained"
+        color="secondary"
+        disabled={isDisabled()}
+      >
         {loading ? "Enviando..." : "Enviar"}
       </Button>
     </Box>

@@ -17,11 +17,32 @@ export default function DrawerInstallments() {
   };
 
   return (
-    <Drawer anchor="right" open={open} onClose={clearContext}>
-      {selectedOffer?.modality == "PRESENCIAL" ? (
-        <OfferPrentialDrawerContent offer={selectedOffer} />
-      ) : (
-        <OfferEadDrawerContent />
+    <Drawer
+      anchor="right"
+      open={open}
+      onClose={clearContext}
+      slotProps={{
+        paper: {
+          sx: {
+            width: { xs: "100%", md: "600px" },
+            height: "100vh",
+            display: "flex",
+            flexDirection: "column",
+          },
+        },
+      }}
+    >
+      {selectedOffer?.modality == "PRESENCIAL" && (
+        <OfferPrentialDrawerContent
+          offer={selectedOffer}
+          clearContext={clearContext}
+        />
+      )}
+      {selectedOffer?.modality == "EAD" && (
+        <OfferEadDrawerContent
+          offer={selectedOffer}
+          clearContext={clearContext}
+        />
       )}
     </Drawer>
   );
