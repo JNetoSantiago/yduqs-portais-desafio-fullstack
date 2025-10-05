@@ -10,7 +10,7 @@ type formEnrollDataType = {
   acceptTerms: boolean;
   allowReceiveNotifications: boolean;
   offerId: number;
-  installmentId: number;
+  installmentId?: number;
 };
 
 export async function enrollInCourse(formData: formEnrollDataType) {

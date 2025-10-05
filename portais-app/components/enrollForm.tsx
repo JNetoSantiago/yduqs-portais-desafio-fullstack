@@ -73,7 +73,10 @@ export default function EnrolForm() {
   const onSubmit = async (data: EnrolFormType) => {
     setLoading(true);
 
-    if (!selectedOffer || !selectedInstallment) {
+    if (
+      !selectedOffer ||
+      (selectedOffer.modality == "PRESENCIAL" && !selectedInstallment)
+    ) {
       setLoading(false);
       console.error("Oferta ou parcela selecionada não encontrada.");
       return;
@@ -82,7 +85,7 @@ export default function EnrolForm() {
     const jsonData = {
       ...data,
       offerId: selectedOffer.id,
-      installmentId: selectedInstallment.id,
+      installmentId: selectedInstallment?.id,
     };
 
     try {
