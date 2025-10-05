@@ -28,7 +28,7 @@ export default function CardOffer({ offer }: { offer: OfferType }) {
         m: 0,
         p: 0,
         width: "100%",
-        maxWidth: { xs: "288px", sm: "288px", md: "381px" },
+        maxWidth: { xs: "100%", sm: "288px", md: "380px" },
       }}
       elevation={0}
     >
@@ -41,7 +41,7 @@ export default function CardOffer({ offer }: { offer: OfferType }) {
         <Box
           sx={{
             width: "100%",
-            maxWidth: { xs: "288px", sm: "288px", md: "381px" },
+            maxWidth: { xs: "100%", sm: "288px", md: "381px" },
             boxSizing: "border-box",
             opacity: 1,
             gap: "8px",

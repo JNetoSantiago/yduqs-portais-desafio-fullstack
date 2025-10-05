@@ -9,12 +9,16 @@ import {
   Checkbox,
   FormControlLabel,
   FormHelperText,
+  Link,
   TextField,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
+
+import CpfMask from "@/components/utils/cpfMask";
+import PhoneMask from "@/components/utils/phoneMask";
 
 const schema = yup
   .object({
@@ -26,20 +30,15 @@ const schema = yup
     yearConclusionSchool: yup
       .string()
       .required("Ano de conclusão é obrigatório"),
-    acceptTerms: yup.boolean().oneOf([true], "É necessário aceitar os termos"),
+    acceptTerms: yup
+      .boolean()
+      .oneOf([true], "É necessário aceitar os termos")
+      .required(),
+    allowReceiveNotifications: yup.boolean().default(false),
   })
   .required();
 
-type EnrolFormType = {
-  name: string;
-  email: string;
-  cpf: string;
-  birthdate: string;
-  phone: string;
-  yearConclusionSchool: string;
-  acceptTerms: boolean;
-  allowReceiveNotifications: boolean;
-};
+export type EnrolFormType = yup.InferType<typeof schema>;
 
 export default function EnrolForm() {
   const { selectedInstallment, selectedOffer } = useContext(OfferContext);
@@ -125,10 +124,10 @@ export default function EnrolForm() {
       sx={{
         display: "flex",
         flexDirection: "column",
-        gap: 2,
-        width: "50%",
+        gap: "24px",
         margin: "auto",
         mt: 5,
+        paddingBottom: "40px",
       }}
     >
       <Controller
@@ -140,21 +139,11 @@ export default function EnrolForm() {
             label="Nome"
             variant="outlined"
             error={!!errors.name}
-            helperText={errors.name?.message}
-          />
-        )}
-      />
-
-      <Controller
-        name="email"
-        control={control}
-        render={({ field }) => (
-          <TextField
-            {...field}
-            label="Email"
-            variant="outlined"
-            error={!!errors.email}
-            helperText={errors.email?.message}
+            helperText={
+              errors.name
+                ? errors.name?.message
+                : "Preencha seu nome completo, sem abreviações, igual ao seu documento de identificação. Confira o exemplo. "
+            }
           />
         )}
       />
@@ -167,8 +156,12 @@ export default function EnrolForm() {
             {...field}
             label="CPF"
             variant="outlined"
+            fullWidth
             error={!!errors.cpf}
             helperText={errors.cpf?.message}
+            InputProps={{
+              inputComponent: CpfMask as any,
+            }}
           />
         )}
       />
@@ -190,15 +183,34 @@ export default function EnrolForm() {
       />
 
       <Controller
-        name="phone"
+        name="email"
         control={control}
         render={({ field }) => (
           <TextField
             {...field}
-            label="Telefone"
+            label="Email"
             variant="outlined"
+            error={!!errors.email}
+            helperText={errors.email?.message}
+          />
+        )}
+      />
+
+      <Controller
+        name="phone"
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <TextField
+            {...field}
+            label="Celular para contato"
+            variant="outlined"
+            fullWidth
             error={!!errors.phone}
             helperText={errors.phone?.message}
+            InputProps={{
+              inputComponent: PhoneMask as any,
+            }}
           />
         )}
       />
@@ -209,7 +221,7 @@ export default function EnrolForm() {
         render={({ field }) => (
           <TextField
             {...field}
-            label="Ano de Conclusão"
+            label="Ano de conclusão do ensino ..."
             type="number"
             variant="outlined"
             error={!!errors.yearConclusionSchool}
@@ -224,7 +236,41 @@ export default function EnrolForm() {
         render={({ field }) => (
           <FormControlLabel
             control={<Checkbox {...field} checked={field.value} />}
-            label="Li e concordo com os termos do edital, bem como com o tratamento dos meus dados para fins de prospecção dos serviços educacionais prestados pela Estácio e demais instituições de ensino do mesmo Grupo Econômico, de acordo com a nossa política de privacidade."
+            sx={{ alignItems: "flex-start", mt: 1 }}
+            label={
+              <Box component="span">
+                Li e concordo com os{" "}
+                <Link
+                  href="/termos-edital"
+                  target="_blank"
+                  underline="always"
+                  sx={{ color: "primary.main" }}
+                >
+                  termos do edital
+                </Link>
+                , bem como com o tratamento dos meus dados para fins de
+                prospecção dos serviços educacionais prestados pela Estácio e
+                demais instituições de ensino do mesmo{" "}
+                <Link
+                  href="/grupo-economico"
+                  target="_blank"
+                  underline="always"
+                  sx={{ color: "primary.main" }}
+                >
+                  Grupo Econômico
+                </Link>
+                , de acordo com a nossa{" "}
+                <Link
+                  href="/politica-privacidade"
+                  target="_blank"
+                  underline="always"
+                  sx={{ color: "primary.main" }}
+                >
+                  política de privacidade
+                </Link>
+                .
+              </Box>
+            }
           />
         )}
       />
@@ -243,14 +289,17 @@ export default function EnrolForm() {
         )}
       />
 
-      <Button
-        type="submit"
-        variant="contained"
-        color="secondary"
-        disabled={isDisabled()}
-      >
-        {loading ? "Enviando..." : "Enviar"}
-      </Button>
+      <Box>
+        <Button
+          type="submit"
+          variant="contained"
+          color="primary"
+          disabled={isDisabled()}
+          disableElevation
+        >
+          {loading ? "Aguarde..." : "Avançar"}
+        </Button>
+      </Box>
     </Box>
   );
 }
