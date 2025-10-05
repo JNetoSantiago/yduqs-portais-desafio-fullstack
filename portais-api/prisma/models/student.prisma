@@ -9,10 +9,10 @@ model Student {
   acceptTerms               Boolean
   allowReceiveNotifications Boolean
   offerId                   Int
-  installmentId             Int
+  installmentId             Int?
 
   offer Offer @relation(fields: [offerId], references: [id])
-  installment Installment @relation(fields: [installmentId], references: [id])
+  installment Installment? @relation(fields: [installmentId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
