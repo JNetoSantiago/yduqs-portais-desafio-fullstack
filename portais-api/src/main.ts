@@ -1,6 +1,6 @@
 import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { PrismaValidationExceptionFilter } from './exceptions/globalException';
+import { AllExceptionsFilter } from './exceptions/globalException';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -8,7 +8,7 @@ async function bootstrap() {
   console.log('Registrando filtro global');
 
   const { httpAdapter } = app.get(HttpAdapterHost);
-  app.useGlobalFilters(new PrismaValidationExceptionFilter(httpAdapter));
+  app.useGlobalFilters(new AllExceptionsFilter(httpAdapter));
 
   await app.listen(process.env.PORT ?? 3000);
 }
