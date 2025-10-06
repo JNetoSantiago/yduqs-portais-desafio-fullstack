@@ -3,7 +3,7 @@ describe("template spec", () => {
     cy.clearLocalStorage();
     cy.clearCookies();
 
-    cy.visit("http://localhost:3001/");
+    cy.visit("http://localhost:3000/");
   });
 
   it("open drawer and redirect to form page for presential course", () => {

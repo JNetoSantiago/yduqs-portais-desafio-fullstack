@@ -1,36 +1,79 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Portais App (Frontend)
 
-## Getting Started
+Aplicação frontend do desafio YDUQS construída com Next.js 15 (App Router), React 19 e MUI. Integra com a `Portais API` em `http://localhost:4000`.
 
-First, run the development server:
+### Stack
+- **Framework**: Next.js 15 (App Router, Turbopack)
+- **UI**: MUI v7 + Emotion
+- **Formulários**: React Hook Form + Yup
+- **Testes**: Jest + Testing Library; Cypress (E2E)
 
+### Pré‑requisitos
+- Node.js 18+
+- Yarn (ou npm/pnpm/bun)
+- API rodando em `http://localhost:4000` (ver `portais-api`)
+
+### Instalação
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Desenvolvimento
+```bash
+yarn dev
+```
+- App: `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build e produção local
+```bash
+yarn build
+yarn start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Integração com a API
+Atualmente as URLs estão definidas nos server actions:
+- `actions/offers.ts` → `GET http://localhost:4000/offers`
+- `actions/enroll.ts` → `POST http://localhost:4000/enroll`
 
-## Learn More
+Se desejar parametrizar por ambiente, você pode mover essas URLs para uma variável pública, por exemplo `NEXT_PUBLIC_API_URL`, e consumir via `process.env.NEXT_PUBLIC_API_URL`.
 
-To learn more about Next.js, take a look at the following resources:
+### Scripts
+```bash
+yarn dev          # desenvolvimento (Turbopack)
+yarn build        # build (Turbopack)
+yarn start        # produção
+yarn lint         # eslint
+yarn test         # unit (watchAll)
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Testes
+- Unitários/integração (Jest + Testing Library):
+```bash
+yarn test
+```
+- E2E (Cypress):
+```bash
+# Caso use Cypress no projeto, execute
+npx cypress open
+# ou
+npx cypress run
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Estrutura do projeto (resumo)
+```
+app/                # App Router
+components/         # componentes UI
+actions/            # server actions para chamadas à API
+contexts/           # contextos de estado
+utils/, types/      # utilitários e tipos
+public/             # assets estáticos
+```
 
-## Deploy on Vercel
+### Configuração
+- `next.config.ts` para opções do Next.
+- Tema MUI em `theme.ts`.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Dicas
+- Garanta que a `Portais API` está rodando antes de usar o app (URLs hardcoded em `actions/`).
+- Para ambientes distintos, extraia a base URL da API para variável de ambiente pública e evite hardcode.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
